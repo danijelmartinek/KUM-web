@@ -1,6 +1,7 @@
 <template>
   <div>
     <mainSection></mainSection>
+    <div style="height: 2000px;"></div>
     <secondSection></secondSection>
   </div>
 </template>
@@ -17,3 +18,13 @@ export default {
   }
 }
 </script>
+
+<style>
+html {
+  scroll-behavior: smooth;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Halant');
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
+</style>
+

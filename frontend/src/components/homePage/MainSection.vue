@@ -2,17 +2,17 @@
     <div>
         <div class="landing_img_container">
             <v-img class="landing_img" :src="require('@/assets/img/kz.png')" aspect-ratio="1.7">
-                <img class="kum_logo" src="@/assets/img/kum_logo.svg" alt="kum_logo">
+                <img class="kum_logo" src="@/assets/img/kum_logo_animation.gif" alt="kum_logo">
                 <carousel 
                     class="jobs" 
                     :loop="true" 
                     :dots="false" 
                     :nav="false" 
-                    :autoplay="true"
-                    :autoplayTimeout="2500"
+                    :autoplay="false"
+                    :autoplayTimeout="4000"
                     :responsive="{0:{items:2,nav:false},600:{items:3,nav:false},900:{items:4,nav:false}, 1200:{items:5,nav:false}}"
                 >
-                    <div :style="{ 'background-image': 'url(' + image1 + ')' }" style="background-size: auto 20vh;">Sport</div>
+                    <a href="#section_two"><div :style="{ 'background-image': 'url(' + image1 + ')' }" style="background-size: auto 20vh;">Sport</div></a>
                     <div :style="{ 'background-image': 'url(' + image2 + ')' }" style="background-size: auto 20vh;">Zabave</div>
                     <div :style="{ 'background-image': 'url(' + image3 + ')' }" style="background-size: auto 20vh;">Volontiranje</div>
                     <div :style="{ 'background-image': 'url(' + image4 + ')' }" style="background-size: auto 20vh;">Obrazovanje</div>
@@ -60,20 +60,20 @@ export default {
     position: relative;
     top: 40%;
     transform: translateY(-50%);
-    width: 30vw;
+    width: 60vw;
     display: block;
     margin: 0 auto;
 }
 
 @media only screen and (min-width: 600px) {
   .kum_logo{
-    width: 20vw;
+    width: 40vw;
   }
 }
 
 @media only screen and (min-width: 1200px) {
   .kum_logo{
-    width: 10vw;
+    width: 20vw;
   }
 }
 
