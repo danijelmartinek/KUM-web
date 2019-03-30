@@ -82,6 +82,9 @@ export default {
     width: 100%;
     bottom: 0;
 }
+.jobs:hover{
+    cursor: grab;
+}
 .jobs div{
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAW+jEh8XwYGhs0wATAHJAkSgHNAAgBWLgNSw1NfCAAAAABJRU5ErkJggg==) repeat;
     height: 15vh;

@@ -7,8 +7,11 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     state: {
         navDrawer: false,
-        user: null,
-        userEmails: []
+        user: {
+            role: 3
+        },
+        userEmails: [],
+        permission: false
     },
     mutations: {
         authUser(state) {
@@ -35,6 +38,13 @@ export const store = new Vuex.Store({
                 if(res.data.success == true){
                     state.userEmails = res.data.userEmails
                 }
+            })
+        },
+        permissionAllowed(state, permissionArray){
+            permissionArray.forEach(role => {
+                if(state.user.role === role){
+                    state.permission = true
+                } 
             })
         }
     }
