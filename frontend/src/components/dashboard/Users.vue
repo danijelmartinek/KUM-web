@@ -101,14 +101,22 @@ export default {
 		}
 	},
 	mounted() {
-		this.$store.commit('permissionAllowed', [0, 1, 2, 3])
-		this.permission = this.$store.state.permission
-		if(this.permission == true){
-			this.users.headers.push({
-			text: 'Action',
-			value: ''
-			})
-		}
+		this.$store.dispatch('permissionAllowed', [0, 2, 3]).then(
+			perm => {
+				this.permission = perm
+				return this.permission
+			}
+		).then(
+			tperm => {
+				if(tperm == true){
+					this.users.headers.push({
+						text: 'Action',
+						value: ''
+					})
+				}
+			}
+		)
+		
 
 		axios
 		.get('https://api.backend/users')

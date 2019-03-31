@@ -8,8 +8,7 @@ export const store = new Vuex.Store({
     state: {
         navDrawer: false,
         user: null,
-        userEmails: [],
-        permission: false
+        userEmails: []
     },
     mutations: {
         logoutUser(state) {
@@ -27,18 +26,11 @@ export const store = new Vuex.Store({
                     state.userEmails = res.data.userEmails
                 }
             })
-        },
-        permissionAllowed(state, permissionArray){
-            permissionArray.forEach(role => {
-                if(state.user.role === role){
-                    state.permission = true
-                } 
-            })
         }
     },
     actions: {
         authUser(context) {
-            return new Promise((resolve) => {
+            return new Promise(resolve => {
                 if(!context.state.user){
                     axios.get("/api/auth")
                     .then(res => {
@@ -51,6 +43,15 @@ export const store = new Vuex.Store({
                     })
                 }
             })
+        },
+        permissionAllowed(context, permissionArray){
+            if(context.state.user){
+                return new Promise(resolve => {
+                    resolve(permissionArray.includes(context.state.user.role))
+                })
+            }else{
+                return true
+            }
         }
     }
 });

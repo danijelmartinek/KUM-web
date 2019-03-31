@@ -8,6 +8,7 @@ import Dashboard from "@/components/Dashboard.vue";
 import DashboardUsers from "@/components/dashboard/Users.vue";
 
 import authMiddleware from '@/middleware/auth.js';
+import authRoleMiddleware from '@/middleware/authWRoleCheck.js';
 
 export default new Router({
   mode: "history",
@@ -25,13 +26,17 @@ export default new Router({
     {
       path: "/dashboard",
       name: "Dashboard",
-      component: Dashboard
+      component: Dashboard,
+      beforeEnter: authMiddleware,
     },
     {
       path: "/dashboard/users",
       name: "Users",
       component: DashboardUsers,
-      beforeEnter: authMiddleware
+      beforeEnter: authRoleMiddleware,
+      meta: {
+        allowedRoles: [0,1,2,3]
+      }
     }
   ]
 });
