@@ -7,23 +7,11 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     state: {
         navDrawer: false,
-        user: {
-            role: 3
-        },
+        user: null,
         userEmails: [],
         permission: false
     },
     mutations: {
-        authUser(state) {
-            if(!state.user){
-                axios.get("/api/auth")
-                .then(res => {
-                    if(res.data.success == true){
-                        state.user = res.data.userData
-                    }
-                })
-            }
-        },
         logoutUser(state) {
             axios.get("/api/logout")
             .then(res => {
@@ -45,6 +33,23 @@ export const store = new Vuex.Store({
                 if(state.user.role === role){
                     state.permission = true
                 } 
+            })
+        }
+    },
+    actions: {
+        authUser(context) {
+            return new Promise((resolve) => {
+                if(!context.state.user){
+                    axios.get("/api/auth")
+                    .then(res => {
+                        if(res.data.success == true){
+                            context.state.user = res.data.userData
+                        }
+                        resolve(res)
+                    }, error => {
+                        resolve(error)
+                    })
+                }
             })
         }
     }

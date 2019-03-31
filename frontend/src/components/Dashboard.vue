@@ -11,7 +11,7 @@
 export default {
 	name: 'dashboard',
 	mounted() {
-	this.$store.commit('authUser')
+	//this.$store.commit('logoutUser')
 	}
 }
 </script>
