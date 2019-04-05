@@ -68,7 +68,7 @@ export default {
         axios.post("/api/login", loginUserData)
         .then(res => {
           if (res.data.success == true) {
-            this.$store.commit('authUser')
+            this.$store.dispatch('authUser')
 
             this.$router.push({
               name: "Dashboard"

@@ -90,7 +90,7 @@ export default {
         axios.post("/api/register", registerUserData)
         .then(res => {
           if (res.data.success == true) {
-            this.$store.commit('authUser')
+            this.$store.dispatch('authUser')
 
             this.$router.push({
               name: "Dashboard"
