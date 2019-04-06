@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
-const app = require('./../server.js');
-const helpers = require('./../util/helpers.js');
+const app = require('./../server.js')
+const helpers = require('./../util/helpers.js')
 const User = require('./../models/user.js')
 
 const saltRounds = 10
@@ -68,7 +68,7 @@ const takenEmails = (req, res) => {
     
         users.forEach((user, index) => {
             userEmails[index] = user.email
-        });
+        })
     
         return res.status(200).send({
             success: true,
@@ -92,7 +92,7 @@ const login = (req, res) => {
   
     User.findOne({email: req.body.email}, (err, user) => {
         if (err) {
-            throw err;
+            throw err
         } else {
             if (user == undefined) {
                 return res.json({
@@ -122,7 +122,7 @@ const login = (req, res) => {
                     // secure: true
                 }).json({
                     success: true
-                });
+                })
             }
         
             return res.json({
@@ -214,7 +214,7 @@ const authMiddleware = (req, res, next) => {
                 res.locals.success = true
                 next()
             }
-        });
+        })
     } else {
         // if there is no token, return an error
         return res.status(403).send({

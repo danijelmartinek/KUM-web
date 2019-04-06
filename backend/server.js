@@ -14,6 +14,7 @@ const app = module.exports = express()
 
 const configDB = require('./config/database.js')
 const controllerAuth = require("./controllers/auth.js")
+const { usersData } = require("./controllers/users.js")
 
 // set ENV --------------------
 const IPADDRESS = process.env.IPADDRESS || 'localhost'
@@ -62,6 +63,8 @@ app.get("/auth", controllerAuth.authentication)
 app.get("/", (req, res) => {
   res.end("Main server route")
 })
+
+app.get("/users",controllerAuth.authMiddleware, usersData)
 
 
 
