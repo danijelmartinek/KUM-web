@@ -26,7 +26,14 @@ const register = (req, res) => {
             password: hash,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            role: 1
+            avatar: '',
+            phoneNumber: '',
+            about: '',
+            membershipFeePaid: false,
+            role: {
+                roleLevel: 1,
+                roleCaption: ''
+            }
         }
   
         User.create(userData, (err, user) => {
@@ -39,7 +46,14 @@ const register = (req, res) => {
                     email: user.email,
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    role: user.role
+                    avatar: user.avatar,
+                    phoneNumber: user.phoneNumber,
+                    about: user.about,
+                    membershipFeePaid: user.membershipFeePaid,
+                    role: {
+                        roleLevel: user.role.roleLevel,
+                        roleCaption: user.role.roleCaption
+                    }
                 }
         
                 // create token
@@ -110,7 +124,14 @@ const login = (req, res) => {
                     email: user.email,
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    role: user.role
+                    avatar: user.avatar,
+                    phoneNumber: user.phoneNumber,
+                    about: user.about,
+                    membershipFeePaid: user.membershipFeePaid,
+                    role: {
+                        roleLevel: user.role.roleLevel,
+                        roleCaption: user.role.roleCaption
+                    }
                 }
         
                 // create token

@@ -47,7 +47,7 @@ export const store = new Vuex.Store({
         permissionAllowed(context, permissionArray){
             if(context.state.user){
                 return new Promise(resolve => {
-                    resolve(permissionArray.includes(context.state.user.role))
+                    resolve(permissionArray.includes(context.state.user.role.roleLevel))
                 })
             }else{
                 return true

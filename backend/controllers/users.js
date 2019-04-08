@@ -3,7 +3,7 @@ const User = require('./../models/user.js')
 const allowedRoles = [0, 1, 2, 3, 4, 5]
 
 const usersData = (req, res) => {
-    if(allowedRoles.includes(res.locals.user.role)){
+    if(allowedRoles.includes(res.locals.user.role.roleLevel)){
         User.find({}, (err, users) => {
             if(err){
                 throw new Error(`Can't get user data.`);
@@ -13,11 +13,18 @@ const usersData = (req, res) => {
         
             users.forEach((user, index) => {
                 usersArray[index] = {
-                    id: user._id,
+                    _id: user._id,
                     email: user.email,
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    role: user.role
+                    avatar: user.avatar,
+                    phoneNumber: user.phoneNumber,
+                    about: user.about,
+                    membershipFeePaid: user.membershipFeePaid,
+                    role: {
+                        roleLevel: user.role.roleLevel,
+                        roleCaption: user.role.roleCaption
+                    }
                 }
             })
         

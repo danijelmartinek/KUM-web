@@ -12,7 +12,7 @@
 							flat
 							solo
 							prepend-icon="search"
-							placeholder="Type something"
+							placeholder="Pretraži"
 							v-model="search"
 							hide-details
 							class="hidden-sm-and-down"
@@ -29,7 +29,7 @@
 								:items="users.items"
 								:rows-per-page-items="[10,25,50,{text:'All','value':-1}]"
 								class="elevation-1"
-								item-key="name"
+								item-key="email"
 								select-all
 								v-model="users.selected"
 								>
@@ -46,9 +46,20 @@
 										<img :src="props.item.avatar" alt="">
 										</v-avatar> 
 									</td>
-									<td>{{ props.item.name }}</td>
+									<td>{{ props.item.firstName }}</td>
+									<td>{{ props.item.lastName }}</td>
 									<td>{{ props.item.email }}</td>
 									<td>{{ props.item.phone }}</td>
+									<td>{{ props.item.role.roleCaption }}</td>
+									<td class="justify-center">
+										<v-checkbox 
+											primary 
+											hide-details 
+											:readonly="true" 
+											:light="true" 
+											:input-value="props.item.membershipFeePaid">
+										</v-checkbox>
+									</td>
 									<td v-if="permission">
 										<v-btn depressed outline icon fab dark color="primary" small>
 											<v-icon>edit</v-icon>
@@ -70,33 +81,45 @@
 
 <script>
 import axios from 'axios'
-import { Items as Users } from '@/api/users';
+
 export default {
 	data() {
 		return {
 			permission: false,
 			search: '',
 			users: {
-			selected: [],
-			headers: [
-				{
-					text: 'Avatar',
-					value: 'avatar'
-				},
-				{
-					text: 'Name',
-					value: 'name'
-				},
-				{
-					text: 'Email',
-					value: 'email'
-				},
-				{
-					text: 'Phone',
-					value: 'phone'
-				},
-			],
-			items: Users
+				selected: [],
+				headers: [
+					{
+						text: 'Avatar',
+						value: 'avatar'
+					},
+					{
+						text: 'Ime',
+						value: 'firstName'
+					},
+					{
+						text: 'Prezime',
+						value: 'lastName'
+					},
+					{
+						text: 'Email',
+						value: 'email'
+					},
+					{
+						text: 'Broj mobitela',
+						value: 'phone'
+					},
+					{
+						text: 'Uloga',
+						value: 'roleCaption'
+					},
+					{
+						text: 'Članarina plaćena',
+						value: 'membershipFeePaid'
+					},
+				],
+				items: []
 			},    
 		}
 	},
@@ -119,8 +142,12 @@ export default {
 		
 
 		axios
-		.get('https://api.backend/users')
-		.then(users => (this.items = users))
+		.get('/api/users')
+		.then(res => {
+			if(res.data.success == true){
+				this.users.items = res.data.users
+			}
+		})
 	}
 };
 </script>

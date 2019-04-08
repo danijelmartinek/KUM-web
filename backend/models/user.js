@@ -13,13 +13,38 @@ var UserSchema = new mongoose.Schema({
   },
   firstName: {
     type: String,
+    default: ''
   },
   lastName: {
     type: String,
+    default: ''
+  },
+  avatar: {
+    data: Buffer,
+    contentType: String
+  },
+  phoneNumber: {
+    type: String,
+    default: ''
+  },
+  about: {
+    type: String,
+    default: ''
+  },
+  membershipFeePaid: {
+    type: Boolean,
+    default: false
   },
   role: {
-    type: Number,
-    required: true,
+    roleLevel: {
+      type: Number,
+      required: true,
+      default: '1'
+    },
+    roleCaption: {
+      type: String,
+      default: ''
+    }
   }
 });
 var User = mongoose.model('User', UserSchema);

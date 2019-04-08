@@ -5,7 +5,7 @@ export default function auth(to, from, next) {
     store.dispatch("authUser").then(() => {
         if (!store.state.user) {
             router.push({name: 'SignUp'})
-        }else if(!to.meta.allowedRoles.includes(store.state.user.role)){
+        }else if(!to.meta.allowedRoles.includes(store.state.user.role.roleLevel)){
             router.push({name: 'Home'})
         }else{
             next()
