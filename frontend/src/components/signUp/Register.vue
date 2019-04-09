@@ -6,7 +6,6 @@
       </div>
       {{register.status}}
     </div>
-    <hr>
     <div class="register">
       <span>Register: </span>
       <input v-model="register.email" type="text" placeholder="Email">
