@@ -8,7 +8,8 @@ export const store = new Vuex.Store({
     state: {
         navDrawer: false,
         user: null,
-        userEmails: []
+        userEmails: [],
+        lastRoute: null
     },
     mutations: {
         logoutUser(state) {

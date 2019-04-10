@@ -1,21 +1,69 @@
 <template>
-  <div class="login-register">
-    <div class="registerErrors">
-      <div v-for="(err, i) in register.errors" :key="i">
-        {{ err }}
-      </div>
-      {{register.status}}
-    </div>
-    <div class="register">
-      <span>Register: </span>
-      <input v-model="register.email" type="text" placeholder="Email">
-      <input v-model="register.password" type="password" placeholder="Password">
-      <input v-model="register.confirmPassword" type="password" placeholder="Confirm password">
-      <input v-model="register.firstName" type="text" placeholder="First name">
-      <input v-model="register.lastName" type="text" placeholder="Last name">
-      <button v-on:click="registerHandler">Submit</button>
-    </div>
-  </div>
+	<div class="register">
+		<div class="registerErrors" style="padding: 2em 2em 0em 2em; color: #ff0055">
+			<h4 v-for="(err, i) in register.errors" :key="i">
+				{{ err }}
+			</h4>
+			<h4>{{register.status}}</h4>
+		</div>
+
+		<v-form style="padding: 0em 2em 2em 2em;">
+			<v-flex xs12>
+				<v-text-field
+					v-model="register.email"
+					label="E-mail"
+					required
+				></v-text-field>
+			</v-flex>
+			<v-flex xs12>
+				<v-text-field
+					v-model="register.password"
+					label="Password"
+					type="password"
+					required
+				></v-text-field>
+			</v-flex>
+			<v-flex xs12>
+				<v-text-field
+					v-model="register.confirmPassword"
+					label="Confirm Password"
+					type="password"
+					required
+				></v-text-field>
+			</v-flex>
+			<v-flex xs12>
+				<v-text-field
+					v-model="register.firstName"
+					label="First Name"
+				></v-text-field>
+			</v-flex>
+			<v-flex xs12>
+				<v-text-field
+					v-model="register.lastName"
+					label="Last Name"
+				></v-text-field>
+			</v-flex>
+			<v-btn @click="registerHandler">
+			Register
+			</v-btn>
+		</v-form>
+		<v-dialog v-model="register.dialog" persistent width="500">
+			<v-card>
+				<div style="text-align: center;">
+					<v-icon style="font-size: 10em; padding: 0.2em;" color="green darken-2">check_circle_outline</v-icon>
+					<div class="title"> You have been successfully registered.</div>
+				</div>
+				<br>
+				<v-card-actions>
+					<v-spacer></v-spacer>
+
+					<v-btn @click="successfullyRegistered">
+						OK
+					</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
+	</div>
 </template>
 
 <script>
@@ -23,6 +71,7 @@ import axios from "axios"
 
 export default {
   name: 'register',
+  props: ['lastRoute'],
   data() {
     return {
       register: {
@@ -32,7 +81,8 @@ export default {
         firstName: null,
         lastName: null,
         errors: [],
-        status: null
+        status: null,
+        dialog: false
       }
     };
   },
@@ -91,15 +141,27 @@ export default {
           if (res.data.success == true) {
             this.$store.dispatch('authUser')
 
-            this.$router.push({
-              name: "Dashboard"
-            })
+            this.register.dialog = true
           } else {
             this.register.status = res.data.message
           }
         })
       }
-    }
+	},
+	
+	successfullyRegistered() {
+		this.register.dialog = false
+
+		if(this.lastRoute){
+			this.$router.push({
+				//path: this.lastRoute.path  --> BUG, won't redirect
+			})
+		} else {
+			this.$router.push({
+				name: "Home"
+			})
+		}
+	}
   }
 }
 </script>

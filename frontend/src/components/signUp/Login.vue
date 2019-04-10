@@ -1,18 +1,33 @@
 <template>
-  <div class="login-register">
-    <div class="loginErrors">
-      <div v-for="(err, i) in login.errors" :key="i">
-        {{ err }}
-      </div>
-      {{login.status}}
-    </div>
-    <div class="login">
-      <span>Login: </span>
-      <input v-model="login.email" type="text" placeholder="Email">
-      <input v-model="login.password" type="password" placeholder="Password">
-      <button v-on:click="loginHandler">Submit</button>
-    </div>
-  </div>
+	<div class="login">
+		<div class="loginErrors" style="padding: 2em 2em 0em 2em; color: #ff0055">
+			<h4 v-for="(err, i) in login.errors" :key="i">
+				{{ err }}
+			</h4>
+			<h4>{{login.status}}</h4>
+		</div>
+
+		<v-form style="padding: 0em 2em 2em 2em;">
+			<v-flex xs12>
+				<v-text-field
+					v-model="login.email"
+					label="E-mail"
+					required
+				></v-text-field>
+			</v-flex>
+			<v-flex xs12>
+				<v-text-field
+					v-model="login.password"
+					label="Password"
+					type="password"
+					required
+				></v-text-field>
+			</v-flex>
+			<v-btn @click="loginHandler">
+			Login
+			</v-btn>
+		</v-form>
+	</div>
 </template>
 
 <script>
@@ -20,15 +35,16 @@ import axios from "axios"
 
 export default {
   name: 'login',
+  props: ['lastRoute'],
   data() {
     return {
-      login: {
-        email: null,
-        password: null,
-        errors: [],
-        status: null
-      },
-    };
+		login: {
+			email: null,
+			password: null,
+			errors: [],
+			status: null
+		}
+    }
   },
   methods:{
 
@@ -54,9 +70,7 @@ export default {
       }
       
     },
-
     loginHandler() {
-
       let valid = this.loginValidate()
 
       const loginUserData = {
@@ -70,9 +84,15 @@ export default {
           if (res.data.success == true) {
             this.$store.dispatch('authUser')
 
-            this.$router.push({
-              name: "Dashboard"
-            });
+            if(this.lastRoute){
+				this.$router.push({
+					path: this.lastRoute.path
+				})
+			} else {
+				this.$router.push({
+					name: "Home"
+				})
+			}
           } else {
             this.login.status = res.data.message
           }

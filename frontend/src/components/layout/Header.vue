@@ -13,8 +13,8 @@
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat>Natjecanja</v-btn>
-      <v-btn flat>Učitaj prijavu</v-btn>
-      <v-btn flat>Prijavi se</v-btn>
+      <router-link tag="v-btn" to="/" flat>Home</router-link>
+      <router-link tag="v-btn" to="/signup" flat>Prijavi se</router-link>
     </v-toolbar-items>
   </v-toolbar>
 </template>
