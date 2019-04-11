@@ -153,9 +153,7 @@ export default {
 		this.register.dialog = false
 
 		if(this.lastRoute){
-			this.$router.push({
-				//path: this.lastRoute.path  --> BUG, won't redirect
-			})
+			window.location.href = this.lastRoute.path
 		} else {
 			this.$router.push({
 				name: "Home"

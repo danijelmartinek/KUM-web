@@ -85,14 +85,14 @@ export default {
             this.$store.dispatch('authUser')
 
             if(this.lastRoute){
-				this.$router.push({
-					path: this.lastRoute.path
-				})
-			} else {
-				this.$router.push({
-					name: "Home"
-				})
-			}
+              this.$router.push({
+                path: this.lastRoute.path
+              })
+            } else {
+              this.$router.push({
+                name: "Home"
+              })
+            }
           } else {
             this.login.status = res.data.message
           }
