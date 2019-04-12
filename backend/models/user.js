@@ -45,6 +45,14 @@ var UserSchema = new mongoose.Schema({
       type: String,
       default: ''
     }
+  },
+  createdAt: { 
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
   }
 });
 var User = mongoose.model('User', UserSchema);

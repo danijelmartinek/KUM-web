@@ -6,6 +6,8 @@ import Home from "@/components/Home.vue";
 import SignUp from "@/components/SignUp.vue";
 import Dashboard from "@/components/Dashboard.vue";
 import DashboardUsers from "@/components/dashboard/Users.vue";
+import UserProfile from "@/components/User.vue";
+import UserProfileEdit from "@/components/dashboard/UserEdit.vue";
 
 import authMiddleware from '@/middleware/auth.js';
 import authRoleMiddleware from '@/middleware/authWRoleCheck.js';
@@ -35,7 +37,21 @@ export default new Router({
       component: DashboardUsers,
       beforeEnter: authRoleMiddleware,
       meta: {
-        allowedRoles: [0,1,2,3]
+        allowedRoles: [0, 1, 2, 3]
+      }
+    },
+    { 
+      path: '/user/:id',
+      name: 'User',
+      component: UserProfile
+    },
+    { 
+      path: '/user/:id/edit',
+      name: 'UserEdit',
+      component: UserProfileEdit,
+      beforeEnter: authRoleMiddleware,
+      meta: {
+        allowedRoles: [0, 1, 2, 3]
       }
     }
   ]

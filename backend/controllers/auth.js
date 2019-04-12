@@ -33,7 +33,9 @@ const register = (req, res) => {
             role: {
                 roleLevel: 1,
                 roleCaption: ''
-            }
+            },
+            createdAt: Date.now(),
+            updatedAt: Date.now()
         }
   
         User.create(userData, (err, user) => {
@@ -53,7 +55,9 @@ const register = (req, res) => {
                     role: {
                         roleLevel: user.role.roleLevel,
                         roleCaption: user.role.roleCaption
-                    }
+                    },
+                    createdAt: user.createdAt,
+                    updatedAt: user.updatedAt
                 }
         
                 // create token
@@ -131,7 +135,9 @@ const login = (req, res) => {
                     role: {
                         roleLevel: user.role.roleLevel,
                         roleCaption: user.role.roleCaption
-                    }
+                    },
+                    createdAt: user.createdAt,
+                    updatedAt: user.updatedAt
                 }
         
                 // create token

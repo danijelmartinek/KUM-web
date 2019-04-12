@@ -43,6 +43,9 @@ export const store = new Vuex.Store({
                         resolve(error)
                     })
                 }
+                else{
+                    resolve("Already authenticated.")
+                }
             })
         },
         permissionAllowed(context, permissionArray){
