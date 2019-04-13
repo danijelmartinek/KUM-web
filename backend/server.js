@@ -9,6 +9,8 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
 
+var graph = require('fbgraph')
+
 // create express app
 const app = module.exports = express()
 
@@ -68,6 +70,118 @@ app.get("/users",controllerAuth.authMiddleware, usersData)
 app.get("/user/:id", userById)
 app.get("/user/:id/delete", deleteUser)
 app.post("/users/multidelete", multiUserDelete)
+
+
+
+
+
+
+const getFbDataParams = (fb, fbParams) => {
+	fbParams.user.accessToken = fb.access_token
+
+	let options = {
+		timeout: 3000,
+		pool: { maxSockets:  Infinity },
+		headers: { connection:  "keep-alive" }
+	};
+	 
+	graph.setOptions(options)
+	.get("/me",(err, res) => {
+		fbParams.user.name = res.name
+		fbParams.user.id = res.id
+	})
+
+	graph.setOptions(options)
+	.get("/me/accounts",(err, res) => {
+		res.data.forEach(acc => {
+			if(acc.name == fbParams.page.name){
+				fbParams.page.accessToken = acc.access_token
+				fbParams.page.id = acc.id
+			}		
+		})
+	})
+}
+
+
+
+
+
+
+let facebookAuth = {
+	clientId: "350914115517680",
+	clientSecret: "4b058b0af94d8dc1a76250b279d3e8a1",
+	redirectUri: "https://b38a5fe6.ngrok.io/fbauthorize",
+	accessTokenUser: null,
+	accessTokenPage: null,
+}
+
+let fbDataParams = {
+	user: {
+		name: null,
+		accessToken: null,
+		id: null
+	},
+	page: {
+		name: "Križevačka udruga mladih",
+		accessToken: null,
+		id: null
+	}
+}
+
+
+
+
+// get authorization url
+var authUrl = graph.getOauthUrl({
+	"client_id": facebookAuth.clientId,
+	"redirect_uri": facebookAuth.redirectUri
+});
+
+
+app.get("/getfbaccesstoken", (req, res) => {
+	res.redirect(authUrl)
+})
+
+app.get("/fbauthorize", (req, res) => {
+	graph.authorize({
+		"client_id": facebookAuth.clientId,
+		"redirect_uri": facebookAuth.redirectUri,
+		"client_secret": facebookAuth.clientSecret,
+		"code": req.query.code
+	}, (err, fbRes) => {
+		facebookAuth.accessTokenUser = fbRes.access_token
+		getFbDataParams(fbRes, fbDataParams)
+	})
+})
+
+app.get("/o", (req, res) => {
+	res.send(fbDataParams)
+})
+
+
+// app.get("/extendfbaccesstoken", (req, res) => {
+
+// 	// extending specific access token
+// 	graph.extendAccessToken({
+// 		"access_token": facebookAuth.accessTokenUser,
+// 		"client_id": facebookAuth.clientId,
+// 		"client_secret": facebookAuth.clientSecret
+// 	}, function (err, fbRes) {
+// 		console.log(facebookAuth.accessTokenUser)
+// 		console.log(fbRes.access_token)
+// 	})
+// })
+
+
+
+
+
+
+
+
+
+
+
 
 
 

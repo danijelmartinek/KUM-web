@@ -4,7 +4,6 @@
 			<v-layout row wrap>
 				<v-flex sm12>
 					<h3>Korisnici</h3>
-					{{users.userIds}}
 				</v-flex>        
 				<v-flex lg12>
 					<v-card>
@@ -94,7 +93,7 @@
 			<v-card>
 				<div style="text-align: center;">
 					<v-icon style="font-size: 10em; padding: 0.2em;" color="error darken-2">error_outline</v-icon>
-					<div class="title">Jeste li sigurni da želite obrisati korisnika {{ deleteUser.firstName }} {{ deleteUser.lastName }}?</div>
+					<div class="subheading">Jeste li sigurni da želite obrisati korisnika {{ deleteUser.firstName }} {{ deleteUser.lastName }}?</div>
 				</div>
 				<br>
 				<v-card-actions>
@@ -114,7 +113,7 @@
 			<v-card>
 				<div style="text-align: center;">
 					<v-icon style="font-size: 10em; padding: 0.2em;" color="error darken-2">error_outline</v-icon>
-					<div class="title">Jeste li sigurni da želite obrisati označene korisnike?</div>
+					<div class="subheading">Jeste li sigurni da želite obrisati označene korisnike?</div>
 				</div>
 				<br>
 				<v-card-actions>
@@ -249,7 +248,6 @@ export default {
 				this.users.selectedIndexes.push(index)
 			})
 
-			console.log(this.users.selectedIndexes)
 		},
 
 		resetMultiDeleteDialog() {
