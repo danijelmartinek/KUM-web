@@ -44,8 +44,8 @@ const usersData = (req, res) => {
     
 }
 
-userById = (req, res) => {
-    User.findById(req.params.id, function (err, user) {
+const userById = (req, res) => {
+    User.findById(req.params.id, (err, user) => {
         if(err){
             return res.status(200).send({
                 success: false,
@@ -78,7 +78,43 @@ userById = (req, res) => {
     })
 }
 
+const deleteUser = (req, res) => {
+    User.findByIdAndDelete(req.params.id, (err, user) => {
+        if(err){
+            return res.status(200).send({
+                success: false,
+                message: "Can't delete user."
+            })
+        }
+
+        return res.status(200).send({
+            success: true,
+            message: "User deleted."
+        })
+    })
+}
+
+const multiUserDelete = (req, res) => {
+    const userIds = req.body.users
+    
+    User.deleteMany({_id: {$in: userIds}}, (err, user) => {
+        if(err){
+            return res.status(200).send({
+                success: false,
+                message: "Can't delete users."
+            })
+        }
+
+        return res.status(200).send({
+            success: true,
+            message: "Users deleted."
+        })
+    })
+}
+
 module.exports = {
     usersData,
-    userById
+    userById,
+    deleteUser,
+    multiUserDelete
 }

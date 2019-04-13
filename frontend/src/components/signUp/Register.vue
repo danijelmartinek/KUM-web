@@ -47,11 +47,12 @@
 			Register
 			</v-btn>
 		</v-form>
+
 		<v-dialog v-model="register.dialog" persistent width="500">
 			<v-card>
 				<div style="text-align: center;">
 					<v-icon style="font-size: 10em; padding: 0.2em;" color="green darken-2">check_circle_outline</v-icon>
-					<div class="title"> You have been successfully registered.</div>
+					<div class="title">You have been successfully registered.</div>
 				</div>
 				<br>
 				<v-card-actions>

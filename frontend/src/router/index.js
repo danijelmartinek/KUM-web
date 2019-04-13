@@ -46,7 +46,7 @@ export default new Router({
       component: UserProfile
     },
     { 
-      path: '/user/:id/edit',
+      path: '/dashboard/user/:id/edit',
       name: 'UserEdit',
       component: UserProfileEdit,
       beforeEnter: authRoleMiddleware,

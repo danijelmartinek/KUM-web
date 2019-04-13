@@ -4,6 +4,7 @@
 			<v-layout row wrap>
 				<v-flex sm12>
 					<h3>Korisnici</h3>
+					{{users.userIds}}
 				</v-flex>        
 				<v-flex lg12>
 					<v-card>
@@ -16,10 +17,13 @@
 							v-model="search"
 							hide-details
 							class="hidden-sm-and-down"
-							></v-text-field>     
+							></v-text-field>
+							<v-btn v-if="users.selected[0]" color="error darken-2" @click="multiDeleteDialog">
+								Izbriši označeno
+							</v-btn>
 							<v-btn icon>
 								<v-icon>filter_list</v-icon>
-							</v-btn>         
+							</v-btn>
 						</v-toolbar>
 						<v-divider></v-divider>
 						<v-card-text class="pa-0">
@@ -60,13 +64,22 @@
 											:input-value="props.item.membershipFeePaid">
 										</v-checkbox>
 									</td>
-									<td v-if="permission">
-										<v-btn depressed outline icon fab dark color="primary" small>
-											<v-icon>edit</v-icon>
-										</v-btn>
-										<v-btn depressed outline icon fab dark color="pink" small>
-											<v-icon>delete</v-icon>
-										</v-btn>
+									<td>
+										<span v-if="permission">
+											<router-link tag="span" :to="'/dashboard/user/' + props.item._id + '/edit'">
+												<v-btn depressed icon dark small>
+													<v-icon>edit</v-icon>
+												</v-btn>
+											</router-link>
+											<v-btn @click="deleteDialog(props.item._id, props.item.firstName, props.item.lastName, props.index)" depressed icon dark small>
+												<v-icon>delete</v-icon>
+											</v-btn>
+										</span>
+										<router-link tag="span" :to="'/user/' + props.item._id">
+											<v-btn depressed icon dark small>
+												<v-icon>remove_red_eye</v-icon>
+											</v-btn>
+										</router-link>
 									</td>
 								</template>
 							</v-data-table>
@@ -76,6 +89,46 @@
 
 			</v-layout>
 		</v-container>
+
+		<v-dialog v-model="deleteUser.dialog" width="500">
+			<v-card>
+				<div style="text-align: center;">
+					<v-icon style="font-size: 10em; padding: 0.2em;" color="error darken-2">error_outline</v-icon>
+					<div class="title">Jeste li sigurni da želite obrisati korisnika {{ deleteUser.firstName }} {{ deleteUser.lastName }}?</div>
+				</div>
+				<br>
+				<v-card-actions>
+					<v-spacer></v-spacer>
+
+					<v-btn color="error darken-2" @click="deleteUserFunction">
+						DA
+					</v-btn>
+					<v-btn @click="resetDeleteDialog">
+						NE
+					</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
+
+		<v-dialog v-model="users.deleteDialog" width="500">
+			<v-card>
+				<div style="text-align: center;">
+					<v-icon style="font-size: 10em; padding: 0.2em;" color="error darken-2">error_outline</v-icon>
+					<div class="title">Jeste li sigurni da želite obrisati označene korisnike?</div>
+				</div>
+				<br>
+				<v-card-actions>
+					<v-spacer></v-spacer>
+
+					<v-btn color="error darken-2" @click="multiDelete">
+						DA
+					</v-btn>
+					<v-btn @click="users.deleteDialog = false">
+						NE
+					</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
 	</div>
 </template>
 
@@ -87,8 +140,18 @@ export default {
 		return {
 			permission: false,
 			search: '',
+			deleteUser: {
+				dialog: false,
+				userId: null,
+				firstName: null,
+				lastName: null,
+				userIndex: null,
+			},
 			users: {
+				deleteDialog: false,
 				selected: [],
+				userIds: [],
+				selectedIndexes: [],
 				headers: [
 					{
 						text: 'Avatar',
@@ -116,8 +179,13 @@ export default {
 					},
 					{
 						text: 'Članarina plaćena',
-						value: 'membershipFeePaid'
+						value: 'membershipFeePaid',
 					},
+					{
+						text: '',
+						value: '',
+						sortable: false
+					}
 				],
 				items: []
 			},    
@@ -129,25 +197,83 @@ export default {
 				this.permission = perm
 				return this.permission
 			}
-		).then(
-			tperm => {
-				if(tperm == true){
-					this.users.headers.push({
-						text: 'Action',
-						value: ''
-					})
-				}
-			}
 		)
-		
 
-		axios
-		.get('/api/users')
+
+		axios.get('/api/users')
 		.then(res => {
 			if(res.data.success == true){
 				this.users.items = res.data.users
 			}
 		})
+	},
+	methods: {
+		deleteDialog(id, firstName, lastName, index) {
+			this.deleteUser.dialog = true
+			this.deleteUser.userId = id
+			this.deleteUser.firstName = firstName
+			this.deleteUser.lastName = lastName
+			this.deleteUser.userIndex = index
+		},
+
+		resetDeleteDialog(){
+			this.deleteUser.dialog = false
+			this.deleteUser.userId = null
+			this.deleteUser.firstName = null
+			this.deleteUser.lastName = null
+			this.deleteUser.userIndex = null
+		},
+
+		deleteUserFunction() {
+			axios.get('/api/user/' + this.deleteUser.userId + '/delete')
+			.then(res => {
+				if(res.data.success == true){
+					this.users.items.splice(this.deleteUser.userIndex, 1)
+
+					this.resetDeleteDialog()
+				}
+			})
+		},
+
+
+
+		multiDeleteDialog() {
+			this.users.deleteDialog = true
+			this.users.userIds = []
+			this.users.selectedIndexes = []
+			
+			this.users.selected.forEach(user => {
+				this.users.userIds.push(user._id)
+
+				let index = this.users.items.indexOf(user)
+				this.users.selectedIndexes.push(index)
+			})
+
+			console.log(this.users.selectedIndexes)
+		},
+
+		resetMultiDeleteDialog() {
+			this.users.deleteDialog = false
+			this.users.selected = []
+			this.users.userIds = []
+			this.users.selectedIndexes = []
+		},
+
+		multiDelete() {
+			axios.post('/api/users/multidelete', {
+				users: this.users.userIds
+			})
+			.then(res => {
+				if(res.data.success == true){
+
+					this.users.selectedIndexes.forEach(index => {
+						this.users.items.splice(index, 1);
+					})
+
+					this.resetMultiDeleteDialog()
+				}
+			})
+		}
 	}
 };
 </script>

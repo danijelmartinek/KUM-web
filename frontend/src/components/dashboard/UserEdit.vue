@@ -31,8 +31,7 @@ export default {
 	mounted() {
         this.userId = this.$route.params.id
 
-		axios
-		.get('/api/user/' + this.userId)
+		axios.get('/api/user/' + this.userId)
 		.then(res => {
 			if(res.data.success == true){
 				this.user = res.data.user

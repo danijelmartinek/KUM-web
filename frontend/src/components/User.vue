@@ -5,7 +5,7 @@
         {{ user.email }} <br>
         {{ user.about }} <br>
         {{ user.role.roleCaption }} <br>
-        <router-link v-if="editPermission" tag="div" :to="userId + '/edit'">
+        <router-link v-if="editPermission" tag="div" :to="'/dashboard/user/' + userId + '/edit'">
             <a>edit</a>
         </router-link>
 	</div>
@@ -29,9 +29,25 @@ export default {
                 }
             }   
 		}
-	},
+    },
 	mounted() {
+        this.checkPermission()
         this.$store.watch(() => this.$store.getters['checkAuth'], () => {
+            this.checkPermission()
+        })
+
+
+        this.userId = this.$route.params.id
+
+		axios.get('/api/user/' + this.userId)
+		.then(res => {
+			if(res.data.success == true){
+				this.user = res.data.user
+			}
+		})
+    },
+    methods: {
+        checkPermission: function() {
             if(this.$store.state.userAuthenticated){
                 this.$store.dispatch('permissionAllowed', [0, 1, 2, 3]).then(
                     perm => {
@@ -39,18 +55,7 @@ export default {
                     }
                 )
             }
-        })
-
-
-        this.userId = this.$route.params.id
-
-		axios
-		.get('/api/user/' + this.userId)
-		.then(res => {
-			if(res.data.success == true){
-				this.user = res.data.user
-			}
-		})
-	}
+        }
+    },
 };
 </script>
