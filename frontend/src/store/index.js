@@ -7,15 +7,20 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     state: {
         navDrawer: false,
+        userAuthenticated: false,
         user: null,
         userEmails: [],
         lastRoute: null
+    },
+    getters: {
+        checkAuth(state) { return state.userAuthenticated }
     },
     mutations: {
         logoutUser(state) {
             axios.get("/api/logout")
             .then(res => {
                 if(res.data.success == true){
+                    state.userAuthenticated = false
                     state.user = null
                 }
             })
@@ -31,25 +36,26 @@ export const store = new Vuex.Store({
     },
     actions: {
         authUser(context) {
-            return new Promise(resolve => {
-                if(!context.state.user){
+            if(!context.state.userAuthenticated){
+                return new Promise(resolve => {
                     axios.get("/api/auth")
                     .then(res => {
                         if(res.data.success == true){
+                            context.state.userAuthenticated = true
                             context.state.user = res.data.userData
                         }
-                        resolve(res)
+                        resolve(context.state.userAuthenticated)
                     }, error => {
                         resolve(error)
                     })
-                }
-                else{
-                    resolve("Already authenticated.")
-                }
-            })
+                })
+            }
+            else{
+                return context.state.userAuthenticated
+            }
         },
         permissionAllowed(context, permissionArray){
-            if(context.state.user){
+            if(context.state.userAuthenticated){
                 return new Promise(resolve => {
                     resolve(permissionArray.includes(context.state.user.role.roleLevel))
                 })

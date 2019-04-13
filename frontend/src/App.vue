@@ -1,17 +1,17 @@
 <template>
-  <v-app id="mainComponent" dark>
+	<v-app id="mainComponent" dark>
 
-    <Header></Header>
+		<Header></Header>
 
-    <Sidebar></Sidebar>
+		<Sidebar></Sidebar>
 
-    <v-content>
-      <v-layout>
-        <router-view/>
-      </v-layout>
-    </v-content>
-    
-  </v-app>
+		<v-content>
+			<v-layout>
+				<router-view/>
+			</v-layout>
+		</v-content>
+		
+	</v-app>
 </template>
 
 <script>
@@ -19,10 +19,13 @@ import Header from "@/components/layout/Header.vue"
 import Sidebar from '@/components/layout/Sidebar.vue'
 
 export default {
-  name: 'App',
-  components: {
-    Header,
-    Sidebar
-  }
+	name: 'App',
+	components: {
+		Header,
+		Sidebar
+	},
+	mounted() {
+		this.$store.dispatch('authUser')
+	}
 }
 </script>

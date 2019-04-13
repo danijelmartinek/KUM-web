@@ -29,7 +29,6 @@ export default {
 		}
 	},
 	mounted() {
-
         this.userId = this.$route.params.id
 
 		axios

@@ -31,8 +31,8 @@ export default {
 		}
 	},
 	mounted() {
-        this.$store.dispatch('authUser').then( () => {
-            if(this.$store.state.user){
+        this.$store.watch(() => this.$store.getters['checkAuth'], () => {
+            if(this.$store.state.userAuthenticated){
                 this.$store.dispatch('permissionAllowed', [0, 1, 2, 3]).then(
                     perm => {
                         this.editPermission = perm
@@ -40,7 +40,7 @@ export default {
                 )
             }
         })
-        
+
 
         this.userId = this.$route.params.id
 

@@ -110,7 +110,7 @@ const login = (req, res) => {
   
     User.findOne({email: req.body.email}, (err, user) => {
         if (err) {
-            throw err
+            throw erruserAuthenticated
         } else {
             if (user == undefined) {
                 return res.json({
