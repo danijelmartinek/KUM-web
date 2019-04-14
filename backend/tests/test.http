@@ -21,10 +21,6 @@ content-type: application/json
 
 ###
 
-GET http://localhost:3000/user/5cae5d452d1f4517a643abdf/delete
-Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzVlYzRmNDA2MzhhZjNiNGNkYzFhMDIiLCJlbWFpbCI6ImV4YW1wbGVAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiRG9lIiwicm9sZSI6MSwiaWF0IjoxNTQ5NzE0Njc2fQ.0W9yMOS7yque9bmFf4kpzK3OXjFkd2jj6ZosAwC4Sow; Max-Age=3600; Path=/; Expires=Sat, 09 Feb 2019 13:17:56 GMT; HttpOnly
-###
-
 GET http://localhost:3000/logout
 Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzVlYzRmNDA2MzhhZjNiNGNkYzFhMDIiLCJlbWFpbCI6ImV4YW1wbGVAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiSm9obiIsImxhc3ROYW1lIjoiRG9lIiwicm9sZSI6MSwiaWF0IjoxNTQ5NzE0Njc2fQ.0W9yMOS7yque9bmFf4kpzK3OXjFkd2jj6ZosAwC4Sow; Max-Age=3600; Path=/; Expires=Sat, 09 Feb 2019 13:17:56 GMT; HttpOnly
 

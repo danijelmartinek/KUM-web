@@ -79,10 +79,10 @@ const register = (req, res) => {
 const takenEmails = (req, res) => {
     User.find({}, (err, users) => {
         if(err){
-            throw new Error(`Can't get user data.`);
+            throw new Error(`Can't get users data.`);
         }
 
-        var userEmails = []
+        let userEmails = []
     
         users.forEach((user, index) => {
             userEmails[index] = user.email
@@ -154,7 +154,7 @@ const login = (req, res) => {
         
             return res.json({
                 success: false,
-                message: "Wrong Password, please retry"
+                message: "Wrong Password, please retry."
             })
         
         }
