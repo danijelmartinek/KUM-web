@@ -9,6 +9,10 @@ import DashboardUsers from "@/components/dashboard/Users.vue";
 import UserProfile from "@/components/User.vue";
 import UserProfileEdit from "@/components/dashboard/UserEdit.vue";
 
+import DashboardEvents from "@/components/dashboard/Events.vue";
+import EventProfile from "@/components/dashboard/Event.vue";
+import EventProfileEdit from "@/components/dashboard/EventEdit.vue";
+
 import authMiddleware from '@/middleware/auth.js';
 import authRoleMiddleware from '@/middleware/authWRoleCheck.js';
 
@@ -49,6 +53,30 @@ export default new Router({
       path: '/dashboard/user/:id/edit',
       name: 'UserEdit',
       component: UserProfileEdit,
+      beforeEnter: authRoleMiddleware,
+      meta: {
+        allowedRoles: [0, 1, 2, 3]
+      }
+    },
+    //events
+    {
+      path: "/dashboard/events",
+      name: "DashboardEvents",
+      component: DashboardEvents,
+      beforeEnter: authRoleMiddleware,
+      meta: {
+        allowedRoles: [0, 1, 2, 3]
+      }
+    },
+    { 
+      path: '/dashboard/event/:id',
+      name: 'Event',
+      component: EventProfile
+    },
+    { 
+      path: '/dashboard/event/:id/edit',
+      name: 'EventEdit',
+      component: EventProfileEdit,
       beforeEnter: authRoleMiddleware,
       meta: {
         allowedRoles: [0, 1, 2, 3]

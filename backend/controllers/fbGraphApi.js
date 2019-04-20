@@ -7,7 +7,8 @@ const Event = require('./../models/event.js')
 const facebookAuth = {
 	clientId: "",
 	clientSecret: "",
-	redirectUri: "",
+    redirectUri: "",
+    clientRedirectUri: "" + "/dashboard/events?fbauth=true",
 	scope: "business_management, manage_pages, pages_manage_cta, pages_show_list, user_events"
 }
 
@@ -18,7 +19,7 @@ let fbDataParams = {
 		id: null
 	},
 	page: {
-		name: "",
+		name: "QUANTi",
 		accessToken: null,
         id: null,
         params: "/events/?fields=id,name,owner,start_time,end_time,event_times,place,description,category,attending_count,maybe_count,interested_count,declined_count,noreply_count,cover,admins{name,username,profile_type,pic_large,pic_small,link,id},ticket_uri,ticket_uri_start_sales_time,ticketing_privacy_uri,ticketing_terms_uri,updated_time"
@@ -72,7 +73,9 @@ const facebookApiAuth = (req, res) => {
             }
             getFbDataParams(facebookRes, fbDataParams, graph, fbReqOptions)
             .then((r) => {
-                return res.json(r)
+                if(r.success == true){
+                    res.redirect(301, facebookAuth.clientRedirectUri)
+                }
             })
 		})
 	}
@@ -98,30 +101,44 @@ const saveFacebookEvents = (req, res) => {
         let eventsArray = []
         graph.setOptions(fbReqOptions)
         .get("/" + fbDataParams.page.id + fbDataParams.page.params, (err, FBres) => {
-            FBres.data.forEach((event) => {
-                if(!eventsFbIds.includes(event.id)){
-                    eventsArray.push(fbEventGet(event))
-                }
-            })
-            resolve({
-                success: true,
-                message: "Events retrieved.",
-                data: eventsArray
-            })
+            if(err){
+                resolve({
+                    success: false,
+                    message: "Events not retrieved."
+                })
+            } else {
+                FBres.data.forEach((event) => {
+                    if(!eventsFbIds.includes(event.id)){
+                        eventsArray.push(fbEventGet(event))
+                    }
+                })
+                resolve({
+                    success: true,
+                    message: "Events retrieved.",
+                    data: eventsArray
+                })
+            } 
         })
     })
     
     getAllFBEvents.then((r) => {
-        Event.insertMany(r.data, (err, data) => {
-            if(err){
-                res.send(err)
-            }
-            return res.json({
-                success: true,
-                message: "Facebook events saved to database.",
-                data: r.data
+        if(r.success == true){
+            Event.insertMany(r.data, (err, data) => {
+                if(err){
+                    res.send(err)
+                }
+                return res.json({
+                    success: true,
+                    message: "Facebook events saved to database.",
+                    data: r.data
+                })
             })
-        })
+        } else {
+            return res.json({
+                success: false,
+                message: r.message
+            })
+        }
     })
 }
 

@@ -1,0 +1,143 @@
+db.getCollection('users').insertMany([/* 1 */
+    {
+        "_id" : ObjectId("5ca0b520044f1815afd52b74"),
+        "email" : "danijel.martinek@gmail.com",
+        "password" : "$2b$10$lyGxko4JgwP8fdRggZXvKOpIRhS7PtL5xfmXAP9oKWBnlwl5f4ULe",
+        "firstName" : "Danijel",
+        "lastName" : "M",
+        "role" : 1,
+        "__v" : 0
+    },
+    
+    /* 2 */
+    {
+        "_id" : ObjectId("5cbb081960567b379fc31b9c"),
+        "role" : {
+            "roleLevel" : 1,
+            "roleCaption" : ""
+        },
+        "firstName" : "Banana",
+        "lastName" : "Banana",
+        "phoneNumber" : "",
+        "about" : "",
+        "membershipFeePaid" : false,
+        "email" : "banana@gmail.com",
+        "password" : "$2b$10$3YBOzMcrh8IkmNIRnBJ82eaEbftdU3SDOqH12UF3tFz4s7PR09YNa",
+        "createdAt" : ISODate("2019-04-20T11:52:57.089Z"),
+        "updatedAt" : ISODate("2019-04-20T11:52:57.089Z"),
+        "__v" : 0
+    },
+    
+    /* 3 */
+    {
+        "_id" : ObjectId("5cbb0add60567b379fc31bff"),
+        "role" : {
+            "roleLevel" : 1,
+            "roleCaption" : ""
+        },
+        "firstName" : "dada",
+        "lastName" : "dada",
+        "phoneNumber" : "",
+        "about" : "",
+        "membershipFeePaid" : false,
+        "email" : "dadada@gmail.com",
+        "password" : "$2b$10$eYc.TX8xrPxq5JDHuvv7yebTPXR9UVpXe0cSjXawSeJaYn7b3fq7u",
+        "createdAt" : ISODate("2019-04-20T12:04:45.033Z"),
+        "updatedAt" : ISODate("2019-04-20T12:04:45.033Z"),
+        "__v" : 0
+    },
+    
+    /* 4 */
+    {
+        "_id" : ObjectId("5cbb0af660567b379fc31c00"),
+        "role" : {
+            "roleLevel" : 1,
+            "roleCaption" : ""
+        },
+        "firstName" : "r",
+        "lastName" : "r",
+        "phoneNumber" : "",
+        "about" : "",
+        "membershipFeePaid" : false,
+        "email" : "r@gmail.com",
+        "password" : "$2b$10$5CcNmYuDIinPv07UVBMKGeNaQ6bAIPz2Aaa23wOC10qOxlix8ukhm",
+        "createdAt" : ISODate("2019-04-20T12:05:10.848Z"),
+        "updatedAt" : ISODate("2019-04-20T12:05:10.848Z"),
+        "__v" : 0
+    },
+    
+    /* 5 */
+    {
+        "_id" : ObjectId("5cbb0b0460567b379fc31c01"),
+        "role" : {
+            "roleLevel" : 1,
+            "roleCaption" : ""
+        },
+        "firstName" : "hh",
+        "lastName" : "he",
+        "phoneNumber" : "",
+        "about" : "",
+        "membershipFeePaid" : false,
+        "email" : "hehe@gmail.com",
+        "password" : "$2b$10$4xaSfUFN5CwfHg1TGKNFWO5UmHun4MGqT1RY9ID7gJrK8tk/Sfptm",
+        "createdAt" : ISODate("2019-04-20T12:05:24.749Z"),
+        "updatedAt" : ISODate("2019-04-20T12:05:24.749Z"),
+        "__v" : 0
+    },
+    
+    /* 6 */
+    {
+        "_id" : ObjectId("5cbb0b1060567b379fc31c02"),
+        "role" : {
+            "roleLevel" : 1,
+            "roleCaption" : ""
+        },
+        "firstName" : "h",
+        "lastName" : "h",
+        "phoneNumber" : "",
+        "about" : "",
+        "membershipFeePaid" : false,
+        "email" : "h@gmail.com",
+        "password" : "$2b$10$UuBKe1TeqPaRgtm0NijkYuWV5XJW5alk1LJkxPRA1PgcPk5YHq./e",
+        "createdAt" : ISODate("2019-04-20T12:05:36.802Z"),
+        "updatedAt" : ISODate("2019-04-20T12:05:36.802Z"),
+        "__v" : 0
+    },
+    
+    /* 7 */
+    {
+        "_id" : ObjectId("5cbb0b2460567b379fc31c03"),
+        "role" : {
+            "roleLevel" : 1,
+            "roleCaption" : ""
+        },
+        "firstName" : "sa",
+        "lastName" : "sa",
+        "phoneNumber" : "",
+        "about" : "",
+        "membershipFeePaid" : false,
+        "email" : "sa@gmail.com",
+        "password" : "$2b$10$4zsR0Sk.L9C83aSD2yiDkuSf7Kz9UkfMDPDqL9wRx2RdyD59wb.2e",
+        "createdAt" : ISODate("2019-04-20T12:05:56.168Z"),
+        "updatedAt" : ISODate("2019-04-20T12:05:56.168Z"),
+        "__v" : 0
+    },
+    
+    /* 8 */
+    {
+        "_id" : ObjectId("5cbb0b3260567b379fc31c04"),
+        "role" : {
+            "roleLevel" : 1,
+            "roleCaption" : ""
+        },
+        "firstName" : "SSS",
+        "lastName" : "ss",
+        "phoneNumber" : "",
+        "about" : "",
+        "membershipFeePaid" : false,
+        "email" : "ss@gmail.com",
+        "password" : "$2b$10$GXdJhY3mHnuCqnLNDEd4/OtleoZndeC.QxBHI3rAvJDvDm2ziP782",
+        "createdAt" : ISODate("2019-04-20T12:06:10.034Z"),
+        "updatedAt" : ISODate("2019-04-20T12:06:10.034Z"),
+        "__v" : 0
+    }])

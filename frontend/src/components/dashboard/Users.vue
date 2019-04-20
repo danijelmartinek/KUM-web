@@ -70,7 +70,7 @@
 													<v-icon>edit</v-icon>
 												</v-btn>
 											</router-link>
-											<v-btn @click="deleteDialog(props.item._id, props.item.firstName, props.item.lastName, props.index)" depressed icon dark small>
+											<v-btn @click="deleteDialog(props.item._id, props.item.firstName, props.item.lastName)" depressed icon dark small>
 												<v-icon>delete</v-icon>
 											</v-btn>
 										</span>
@@ -144,17 +144,16 @@ export default {
 				userId: null,
 				firstName: null,
 				lastName: null,
-				userIndex: null,
 			},
 			users: {
 				deleteDialog: false,
 				selected: [],
 				userIds: [],
-				selectedIndexes: [],
 				headers: [
 					{
 						text: 'Avatar',
-						value: 'avatar'
+						value: 'avatar',
+						sortable: false
 					},
 					{
 						text: 'Ime',
@@ -207,12 +206,11 @@ export default {
 		})
 	},
 	methods: {
-		deleteDialog(id, firstName, lastName, index) {
+		deleteDialog(id, firstName, lastName) {
 			this.deleteUser.dialog = true
 			this.deleteUser.userId = id
 			this.deleteUser.firstName = firstName
 			this.deleteUser.lastName = lastName
-			this.deleteUser.userIndex = index
 		},
 
 		resetDeleteDialog(){
@@ -220,14 +218,13 @@ export default {
 			this.deleteUser.userId = null
 			this.deleteUser.firstName = null
 			this.deleteUser.lastName = null
-			this.deleteUser.userIndex = null
 		},
 
 		deleteUserFunction() {
 			axios.get('/api/user/' + this.deleteUser.userId + '/delete')
 			.then(res => {
 				if(res.data.success == true){
-					this.users.items.splice(this.deleteUser.userIndex, 1)
+					this.users.items = res.data.users
 
 					this.resetDeleteDialog()
 				}
@@ -239,13 +236,9 @@ export default {
 		multiDeleteDialog() {
 			this.users.deleteDialog = true
 			this.users.userIds = []
-			this.users.selectedIndexes = []
 			
 			this.users.selected.forEach(user => {
 				this.users.userIds.push(user._id)
-
-				let index = this.users.items.indexOf(user)
-				this.users.selectedIndexes.push(index)
 			})
 
 		},
@@ -254,7 +247,6 @@ export default {
 			this.users.deleteDialog = false
 			this.users.selected = []
 			this.users.userIds = []
-			this.users.selectedIndexes = []
 		},
 
 		multiDelete() {
@@ -263,10 +255,7 @@ export default {
 			})
 			.then(res => {
 				if(res.data.success == true){
-
-					this.users.selectedIndexes.forEach(index => {
-						this.users.items.splice(index, 1);
-					})
+					this.users.items = res.data.users
 
 					this.resetMultiDeleteDialog()
 				}

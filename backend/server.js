@@ -15,6 +15,7 @@ const app = module.exports = express()
 const configDB = require('./config/database.js')
 const controllerAuth = require("./controllers/auth.js")
 const { usersData, userById, deleteUser, multiUserDelete } = require("./controllers/users.js")
+const { eventsData, eventById, deleteEvent, multiEventDelete } = require("./controllers/events.js")
 const { facebookApiAuth, saveFacebookEvents } = require("./controllers/fbGraphApi.js")
 
 // set ENV --------------------
@@ -65,11 +66,15 @@ app.get("/", (req, res) => {
   res.end("Main server route")
 })
 
-app.get("/users",controllerAuth.authMiddleware, usersData)
+app.get("/users", controllerAuth.authMiddleware, usersData)
 app.get("/user/:id", userById)
-app.get("/user/:id/delete", deleteUser)
-app.post("/users/multidelete", multiUserDelete)
+app.get("/user/:id/delete", controllerAuth.authMiddleware, deleteUser)
+app.post("/users/multidelete", controllerAuth.authMiddleware, multiUserDelete)
 
+app.get("/events", eventsData)
+app.get("/event/:id", eventById)
+app.get("/event/:id/delete", deleteEvent)
+app.post("/events/multidelete", multiEventDelete)
 
 // Facebook graph api routes  --------------------
 app.get("/fb/auth", facebookApiAuth)

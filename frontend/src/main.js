@@ -7,6 +7,7 @@ Vue.config.productionTip = false
 
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
+Vue.use(require('vue-moment'));
 import 'vuetify/dist/vuetify.min.css'
 
 new Vue({

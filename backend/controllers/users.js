@@ -87,10 +87,7 @@ const deleteUser = (req, res) => {
             })
         }
 
-        return res.status(200).send({
-            success: true,
-            message: "User deleted."
-        })
+        return usersData(req, res)
     })
 }
 
@@ -105,10 +102,7 @@ const multiUserDelete = (req, res) => {
             })
         }
 
-        return res.status(200).send({
-            success: true,
-            message: "Users deleted."
-        })
+        return usersData(req, res)
     })
 }
 
