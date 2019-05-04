@@ -19,7 +19,7 @@ let fbDataParams = {
 		id: null
 	},
 	page: {
-		name: "QUANTi",
+		name: "",
 		accessToken: null,
         id: null,
         params: "/events/?fields=id,name,owner,start_time,end_time,event_times,place,description,category,attending_count,maybe_count,interested_count,declined_count,noreply_count,cover,admins{name,username,profile_type,pic_large,pic_small,link,id},ticket_uri,ticket_uri_start_sales_time,ticketing_privacy_uri,ticketing_terms_uri,updated_time"

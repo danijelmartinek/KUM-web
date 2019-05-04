@@ -4,6 +4,8 @@ Vue.use(Router);
 
 import Home from "@/components/Home.vue";
 import SignUp from "@/components/SignUp.vue";
+import Events from "@/components/eventsPage/Events.vue";
+
 import Dashboard from "@/components/Dashboard.vue";
 import DashboardUsers from "@/components/dashboard/Users.vue";
 import UserProfile from "@/components/User.vue";
@@ -28,6 +30,11 @@ export default new Router({
       path: "/signup",
       name: "SignUp",
       component: SignUp
+    },
+    {
+      path: "/events",
+      name: "Events",
+      component: Events
     },
     {
       path: "/dashboard",
