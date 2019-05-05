@@ -28,43 +28,7 @@
 				</v-flex>
 
 				<v-flex sm5>
-					<div id="selectedEventInfo" class="elevation-12">
-						<v-card class="elevation-0" color="#070b34">
-							<v-img
-							:src="selectedEvent.cover.source"
-							lazy-src="https://cdn.dribbble.com/users/830587/screenshots/4381223/loader_gif.gif"
-							aspect-ratio="1.7778"
-							class="eventCover"
-							></v-img>
-
-							<v-card-title primary-title>
-							<div>
-								<h3 class="headline mb-3">{{ selectedEvent.name }}</h3>
-								<div v-if="selectedEvent.eventTimes[0]" class="eventTimes" >
-									<span 
-									v-for="time in selectedEvent.eventTimes.slice().reverse()" 
-									:key="time._id" 
-									class="eventTimes">
-										<span>{{ time.startTime | moment("DD.MM.YYYY") }}</span>
-										<span style="float: right;">{{ time.startTime | moment("H:mm") }} - {{ time.endTime | moment("H:mm") }}</span>
-										<v-divider></v-divider>
-									</span>
-								</div>
-								<div v-else>
-									<span>{{ selectedEvent.startTime | moment("DD.MM.YYYY") }}</span>
-									<span style="float: right;">{{ selectedEvent.startTime | moment("H:mm") }} - {{ selectedEvent.endTime | moment("H:mm") }}</span>
-									<v-divider></v-divider>
-								</div>
-								<br>
-								<div class="eventDescription"><pre>{{ selectedEvent.description }}</pre></div>
-							</div>
-							</v-card-title>
-
-							<v-card-actions>
-							<v-btn flat color="orange">Share</v-btn>
-							</v-card-actions>
-						</v-card>
-					</div>
+					<SelectedEvent :selectedEvent="selectedEvent" ></SelectedEvent>
 				</v-flex>
 
 			</v-layout>
@@ -74,14 +38,23 @@
 
 <script>
 import axios from 'axios'
+import SelectedEvent from "@/components/eventsPage/SelectedEvent.vue"
 
 export default {
+	components: {
+		SelectedEvent
+	},
 	data() {
 		return {
 			timeNow: new Date(),
 			currentSelectedEventIndex: 0,
 			events: [],
-			selectedEvent: {}
+			selectedEvent: {
+				cover: {
+					source: ""
+				},
+				eventTimes: []
+			}
 		}
 	},
 	mounted() {
@@ -91,10 +64,19 @@ export default {
 			if(res.data.success == true){
 				this.events = res.data.events
 				this.selectedEvent = res.data.events[0]
+				this.getEventTimes()
 			}
 		})
 	},
 	methods: {
+		getEventTimes(){
+			if(!(this.selectedEvent.eventTimes[0])){
+				this.selectedEvent.eventTimes.push({
+					startTime: this.selectedEvent.startTime,
+					endTime: this.selectedEvent.endTime
+				})
+			}
+		},
 		selectEvent(index){
 			let events = document.getElementsByClassName("eventInList")
 			
@@ -103,6 +85,8 @@ export default {
 			
 			events[index].classList.add("eventSelected")
 			this.selectedEvent = this.events[index]
+
+			this.getEventTimes()
 		}
 	}
 };
@@ -150,29 +134,5 @@ export default {
 	background-color: #ffffff;
 	border-radius: 50%;
 	display: inline-block;
-}
-
-
-
-#selectedEventInfo{
-	width: 100%;
-	height: 100%;
-	padding: 1em;
-	background-color: #070b34;
-}
-
-.eventDescription{
-	max-height: 180px;
-	overflow: scroll;
-}
-
-.eventDescription::-webkit-scrollbar {
-		display: none;
-}
-
-.eventDescription pre {
-  white-space: pre-wrap; 
-  word-wrap: break-word;
-  font-family: inherit;
 }
 </style>

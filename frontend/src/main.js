@@ -5,6 +5,11 @@ import router from './router'
 import {store} from './store/index.js'
 Vue.config.productionTip = false
 
+import VueGlide from 'vue-glide-js'
+import 'vue-glide-js/dist/vue-glide.css'
+
+Vue.use(VueGlide)
+
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 Vue.use(require('vue-moment'));
