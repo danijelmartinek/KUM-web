@@ -32,11 +32,12 @@
                 :loop="false" 
                 :dots="true" 
                 :nav="false" 
+                :margin="30"  
                 :responsive="{0:{items:1,nav:false}}"
                 :URLhashListener="true"
             >
                 <div data-hash="opis" class="eventDescription"><pre>{{ selectedEvent.description }}</pre></div>
-                <div data-hash="lokacija" class="eventDescription"><pre>{{ selectedEvent.description }}</pre></div>
+                <div data-hash="lokacija"><Location :eventLocation="eventLocation"></Location></div>
                 <div data-hash="komentari" class="eventDescription"><pre>{{ selectedEvent.description }}</pre></div>
             </carousel>
         </v-card>
@@ -45,17 +46,25 @@
 
 <script>
 import carousel from 'v-owl-carousel' 
+import Location from "@/components/eventsPage/Location.vue"
 
 export default {
     components: {
-      carousel
+      carousel,
+      Location
     },
     props: ['selectedEvent'],
 	data() {
 		return {
-			timeNow: new Date()
+            timeNow: new Date(),
+            eventLocation: {}
 		}
-	}
+    },
+    watch: { 
+        selectedEvent: function() {
+            this.eventLocation = this.selectedEvent.place
+        }
+    }
 };
 </script>
 

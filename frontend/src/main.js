@@ -10,6 +10,11 @@ import 'vue-glide-js/dist/vue-glide.css'
 
 Vue.use(VueGlide)
 
+import "leaflet"
+import "leaflet/dist/leaflet.css"
+
+require('mapbox.js') // <-- auto-attaches to window.L
+
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 Vue.use(require('vue-moment'));
