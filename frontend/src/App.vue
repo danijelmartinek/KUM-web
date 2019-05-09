@@ -6,7 +6,7 @@
 		<Sidebar></Sidebar>
 
 		<v-content>
-			<v-layout>
+			<v-layout id="mainLayout">
 				<router-view/>
 			</v-layout>
 		</v-content>
@@ -29,3 +29,10 @@ export default {
 	}
 }
 </script>
+
+<style>
+#mainLayout{
+	width: 100%;
+	height: 100%;
+}
+</style>

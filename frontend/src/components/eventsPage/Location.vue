@@ -42,7 +42,7 @@ export default {
                 this.Lmap.dragging.disable()
 
                 // Mapbox - add your access token
-                L.mapbox.accessToken = '';
+                L.mapbox.accessToken = 'pk.eyJ1IjoiZGFuaWplbG1yIiwiYSI6ImNqcG8xZG9jZDA5MXU0OHAxNDAyMjB4dWIifQ.K7aAZQ5yogCd_uAJpQ-hvg';
                 // Mapbox - add the style to your map as image tiles
                 L.mapbox.styleLayer('mapbox://styles/danijelmr/cjpo1rqxv3bp22sry4l79atwl').addTo(this.Lmap);
                 
@@ -102,7 +102,7 @@ export default {
 }
 #LmapId{
     width: 100%;
-    height: 180px;
+    height: 200px;
     position: absolute;
 }
 </style>

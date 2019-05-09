@@ -5,17 +5,17 @@
 				<v-flex sm12>
 					<h3>Događaji</h3>
 				</v-flex>  
-				<v-flex offset-sm1 sm5>
+				<v-flex offset-sm2 sm4 class="pr-5">
 					<div id="eventsListContainer">
 						<div class="eventInList"  :class="{'eventSelected': (index == 0)}" @click="selectEvent(index)" v-for="(event, index) in events" :key="event._id">
-							<v-card color="#070b34" class="white--text elevation-12">
+							<v-card color="#12152b" class="white--text elevation-0">
 								<v-card-title primary-title>
 									<div>
-										<v-chip v-if="timeNow > new Date(event.startTime)" color="#141852" text-color="white" :small="true">
+										<v-chip v-if="timeNow > new Date(event.startTime)" color="#1b1f40" text-color="white" :small="true">
 											<span class="dot"></span>
 											{{ event.startTime | moment("DD.MM.YYYY") }}
 										</v-chip>
-										<v-chip v-else class="font-weight-bold" color="#1bae00" text-color="white" :small="true">
+										<v-chip v-else class="font-weight-bold upcomingEvent" text-color="white" :small="true">
 											<span class="dotIncoming"></span>
 											{{ event.startTime | moment("DD.MM.YYYY") }}
 										</v-chip>
@@ -27,7 +27,7 @@
 					</div>
 				</v-flex>
 
-				<v-flex sm5>
+				<v-flex sm4>
 					<SelectedEvent :selectedEvent="selectedEvent" ></SelectedEvent>
 				</v-flex>
 
@@ -96,29 +96,53 @@ export default {
 #events{
 	width: 100%;
 	height: 100%;
-	background-color: #1F2348;
+	background-color: #0c0e1c;
 }
 
 #eventsListContainer{
 	width: 100%;
-	height: 720px;
-	padding: 1em;
+	height: 80vh;
 	overflow: scroll;
+	overflow-x: hidden;
 }
 
+/* width */
 #eventsListContainer::-webkit-scrollbar {
-		display: none;
+    margin: 0.5em;
+    width: 7px;
+}
+
+/* Track */
+#eventsListContainer::-webkit-scrollbar-track {
+    background: #12152b;
+}
+ 
+/* Handle */
+#eventsListContainer::-webkit-scrollbar-thumb {
+  background: #1b1f40; 
+}
+
+/* Handle on hover */
+#eventsListContainer::-webkit-scrollbar-thumb:hover {
+  background: #35385a; 
 }
 
 .eventInList{
-	padding: 0.5em;
+	padding: 0.2em;
 	margin: 1em;
 	cursor: pointer;
 }
 
 .eventSelected{
-	background-color: #555892;
+	background: rgb(253,29,29);
+	background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(252,176,69,1) 100%);
 }
+
+.upcomingEvent{
+	background: rgb(253,29,29) !important;
+	background: linear-gradient(90deg, rgba(253,29,29,1) 0%, rgba(252,176,69,1) 100%) !important;
+}
+
 .dot{
 	height: 0.5em;
 	width: 0.5em;
@@ -127,6 +151,7 @@ export default {
 	border-radius: 50%;
 	display: inline-block;
 }
+
 .dotIncoming{
 	height: 0.5em;
 	width: 0.5em;

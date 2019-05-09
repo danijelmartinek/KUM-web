@@ -1,6 +1,6 @@
 <template>
-    <div id="selectedEventInfo" class="elevation-12">
-        <v-card class="elevation-0" color="#070b34">
+    <div id="selectedEventInfo">
+        <v-card class="elevation-0" color="#12152b">
             <v-img
             :src="selectedEvent.cover.source"
             lazy-src="https://cdn.dribbble.com/users/830587/screenshots/4381223/loader_gif.gif"
@@ -8,25 +8,28 @@
             class="eventCover"
             ></v-img>
 
-            <v-card-title primary-title>
             <div>
-                <h3 class="headline mb-3">{{ selectedEvent.name }}</h3>
-                    <div
-                    v-for="time in selectedEvent.eventTimes.slice().reverse()" 
-                    :key="time._id" 
-                    class="eventTimes"
-                    >
-                        <span>{{ time.startTime | moment("DD.MM.YYYY") }}</span>
-                        <span style="float: right;">{{ time.startTime | moment("H:mm") }} - {{ time.endTime | moment("H:mm") }}</span>
-                        <v-divider></v-divider>
-                    </div>
+                <h3 class="headline ma-3">{{ selectedEvent.name }}</h3> 
             </div>
-            </v-card-title>
+
+            <div id="eventTimes" class="pb-1">
+                <div
+                v-for="time in selectedEvent.eventTimes.slice().reverse()" 
+                :key="time._id"
+                >
+                    <v-chip class="py-3" color="#1b1f40" text-color="white" :small="true">
+                        <span class="pr-3">{{ time.startTime | moment("DD.MM.YYYY") }}</span>
+                        <span>{{ time.startTime | moment("H:mm") }} - {{ time.endTime | moment("H:mm") }}</span>
+                    </v-chip>
+                </div>
+            </div>
+
             <v-card-actions>
                 <a href="#opis"><v-btn flat color="orange">Opis</v-btn></a>
                 <a href="#lokacija"><v-btn flat color="orange">Lokacija</v-btn></a>
                 <a href="#komentari"><v-btn flat color="orange">Komentari</v-btn></a>
             </v-card-actions>
+
             <carousel 
                 class="jobs" 
                 :loop="false" 
@@ -60,6 +63,20 @@ export default {
             eventLocation: {}
 		}
     },
+    mounted(){
+        this.$nextTick(function() {
+            window.addEventListener('resize', this.ajustWidthAndHeight)
+
+            //Init
+            this.ajustWidthAndHeight()
+        })
+    },
+    methods: {
+        ajustWidthAndHeight: () => {
+            var elemWidth = document.getElementById('selectedEventInfo').offsetWidth
+            document.getElementById('eventTimes').style.width = elemWidth - 30 + "px";
+        }
+    },
     watch: { 
         selectedEvent: function() {
             this.eventLocation = this.selectedEvent.place
@@ -72,21 +89,69 @@ export default {
 
 #selectedEventInfo{
 	width: 100%;
-	height: 100%;
 	padding: 1em;
-	background-color: #070b34;
+	background-color: #12152b;
+}
+
+#eventTimes{
+    overflow: auto;
+    white-space: nowrap;
+    overflow: scroll;
+    overflow-y: hidden;
+}
+
+#eventTimes > div{
+    display: inline;
+}
+
+/* width */
+#eventTimes::-webkit-scrollbar {
+    margin: 0.5em;
+    height: 5px;
+}
+
+/* Track */
+#eventTimes::-webkit-scrollbar-track {
+    background: #12152b;
+}
+ 
+/* Handle */
+#eventTimes::-webkit-scrollbar-thumb {
+  background: #1b1f40; 
+}
+
+/* Handle on hover */
+#eventTimes::-webkit-scrollbar-thumb:hover {
+  background: #35385a; 
 }
 
 .eventDescription{
-	max-height: 180px;
-	overflow: scroll;
+	max-height: 200px;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
+/* width */
 .eventDescription::-webkit-scrollbar {
-		display: none;
+    width: 5px;
 }
 
-.eventDescription pre {
+/* Track */
+.eventDescription::-webkit-scrollbar-track {
+    background: #12152b;
+}
+ 
+/* Handle */
+.eventDescription::-webkit-scrollbar-thumb {
+  background: #1b1f40; 
+}
+
+/* Handle on hover */
+.eventDescription::-webkit-scrollbar-thumb:hover {
+  background: #35385a; 
+}
+
+.eventDescription pre{
   white-space: pre-wrap; 
   word-wrap: break-word;
   font-family: inherit;
