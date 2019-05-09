@@ -147,7 +147,7 @@ export default {
 	height: 0.5em;
 	width: 0.5em;
 	margin: 0.2em 0.7em 0.2em 0em;
-	background-color: #ff0000;
+	background-color: rgba(253,98,48,1);
 	border-radius: 50%;
 	display: inline-block;
 }

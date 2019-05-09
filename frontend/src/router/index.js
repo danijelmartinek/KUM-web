@@ -67,7 +67,7 @@ export default new Router({
     },
     //events
     {
-      path: "/dashboard/events",
+      path: "/dashboard/events2",
       name: "DashboardEvents",
       component: DashboardEvents,
       beforeEnter: authRoleMiddleware,

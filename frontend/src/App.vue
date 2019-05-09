@@ -1,12 +1,11 @@
 <template>
 	<v-app id="mainComponent" dark>
 
-		<Header></Header>
-
-		<Sidebar></Sidebar>
+		<MobileNav></MobileNav>
 
 		<v-content>
 			<v-layout id="mainLayout">
+				<DesktopNav></DesktopNav>
 				<router-view/>
 			</v-layout>
 		</v-content>
@@ -15,14 +14,14 @@
 </template>
 
 <script>
-import Header from "@/components/layout/Header.vue"
-import Sidebar from '@/components/layout/Sidebar.vue'
+import MobileNav from "@/components/layout/MobileNav.vue"
+import DesktopNav from "@/components/layout/DesktopNav.vue"
 
 export default {
 	name: 'App',
 	components: {
-		Header,
-		Sidebar
+		MobileNav,
+		DesktopNav
 	},
 	mounted() {
 		this.$store.dispatch('authUser')
@@ -32,7 +31,14 @@ export default {
 
 <style>
 #mainLayout{
+	margin-top: 3em;
 	width: 100%;
 	height: 100%;
+}
+
+@media screen and (min-width: 960px) {
+	#mainLayout{
+		margin-top: 0;
+	}
 }
 </style>

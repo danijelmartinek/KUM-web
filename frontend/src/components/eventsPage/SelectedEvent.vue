@@ -24,10 +24,10 @@
                 </div>
             </div>
 
-            <v-card-actions>
-                <a href="#opis"><v-btn flat color="orange">Opis</v-btn></a>
-                <a href="#lokacija"><v-btn flat color="orange">Lokacija</v-btn></a>
-                <a href="#komentari"><v-btn flat color="orange">Komentari</v-btn></a>
+            <v-card-actions class="eventTab">
+                <a href="#opis"><v-btn flat color="rgba(253,98,48,1)">Opis</v-btn></a>
+                <a href="#lokacija"><v-btn flat color="rgba(253,98,48,1)">Lokacija</v-btn></a>
+                <a href="#komentari"><v-btn flat color="rgba(253,98,48,1)">Komentari</v-btn></a>
             </v-card-actions>
 
             <carousel 
@@ -143,17 +143,21 @@ export default {
  
 /* Handle */
 .eventDescription::-webkit-scrollbar-thumb {
-  background: #1b1f40; 
+    background: #1b1f40; 
 }
 
 /* Handle on hover */
 .eventDescription::-webkit-scrollbar-thumb:hover {
-  background: #35385a; 
+    background: #35385a; 
 }
 
 .eventDescription pre{
-  white-space: pre-wrap; 
-  word-wrap: break-word;
-  font-family: inherit;
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+    font-family: inherit;
+}
+
+.eventTab > a{
+    text-decoration: none;
 }
 </style>

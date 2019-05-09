@@ -44,9 +44,9 @@ export default {
                 // Mapbox - add your access token
                 L.mapbox.accessToken = 'pk.eyJ1IjoiZGFuaWplbG1yIiwiYSI6ImNqcG8xZG9jZDA5MXU0OHAxNDAyMjB4dWIifQ.K7aAZQ5yogCd_uAJpQ-hvg';
                 // Mapbox - add the style to your map as image tiles
-                L.mapbox.styleLayer('mapbox://styles/danijelmr/cjpo1rqxv3bp22sry4l79atwl').addTo(this.Lmap);
+                L.mapbox.styleLayer('mapbox://styles/danijelmr/cjvgrggal09r51fk1o0omw4ce').addTo(this.Lmap);
                 
-                var svg = '<svg xmlns="http://www.w3.org/2000/svg" height="120" width="120"><circle cx="60" cy="60" r="60" fill="red" opacity="0.3" /><circle cx="60" cy="60" r="40" fill="red" />Sorry, your browser does not support inline SVG.</svg>'
+                var svg = '<svg xmlns="http://www.w3.org/2000/svg" height="120" width="120"><circle cx="60" cy="60" r="60" fill="rgba(253,98,48,1)" opacity="0.3" /><circle cx="60" cy="60" r="40" fill="red" />Sorry, your browser does not support inline SVG.</svg>'
                 this.iconUrl = encodeURI("data:image/svg+xml," + svg).replace('#','%23')
 
                 var redIcon = L.icon({
