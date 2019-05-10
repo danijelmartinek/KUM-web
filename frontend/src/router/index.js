@@ -43,7 +43,7 @@ export default new Router({
       beforeEnter: authMiddleware,
     },
     {
-      path: "/dashboard/users",
+      path: "/dashboard/users_",
       name: "Users",
       component: DashboardUsers,
       beforeEnter: authRoleMiddleware,
@@ -67,7 +67,7 @@ export default new Router({
     },
     //events
     {
-      path: "/dashboard/events2",
+      path: "/dashboard/events_",
       name: "DashboardEvents",
       component: DashboardEvents,
       beforeEnter: authRoleMiddleware,

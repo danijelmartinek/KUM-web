@@ -81,6 +81,9 @@ export default {
         selectedEvent: function() {
             this.eventLocation = this.selectedEvent.place
         }
+    },
+    beforeDestroy(){
+        window.removeEventListener('resize', () => {})
     }
 };
 </script>

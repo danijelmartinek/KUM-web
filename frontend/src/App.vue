@@ -23,15 +23,15 @@ export default {
 		MobileNav,
 		DesktopNav
 	},
-	mounted() {
-		this.$store.dispatch('authUser')
-	}
+	// created() {
+	// 	this.$store.dispatch('authUser')
+	// }
 }
 </script>
 
 <style>
 #mainLayout{
-	margin-top: 3em;
+	margin-top: 4em;
 	width: 100%;
 	height: 100%;
 }

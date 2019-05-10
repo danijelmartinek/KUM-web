@@ -1,13 +1,14 @@
 <template>
     <div>
         <div id="leftSpacer"></div>
-        <sidebar-menu :menu="menu" @collapse="onCollapse" :collapsed="true" width="250px"></sidebar-menu>
+        <sidebar-menu :menu="menu" @collapse="onCollapse" :collapsed="true" width="200px"></sidebar-menu>
     </div>
 </template>
 
 <script>
 import { SidebarMenu } from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+import { itemController } from './navItemController.js'
 
 
 export default {
@@ -16,63 +17,22 @@ export default {
 	},
     data() {
         return {
-            menuIcons: ['home', 'event', 'account_circle','group', 'event_note'],
-            menu: [
-                {
-                    header: true,
-                    title: 'Navigacija',
-                    // component: componentName
-                    // visibleOnCollapse: true
-                    //class:'hidden'
-                    // attributes: {}
-                },
-                {
-                    href: '/',
-                    title: 'Početna',
-                    icon: 'v-icon material-icons'
-                },
-                {
-                    href: '/events',
-                    title: 'Događaji',
-                    icon: 'v-icon material-icons',
-                },
-                {
-                    href: '/signup',
-                    title: 'Login',
-                    icon: 'v-icon material-icons',
-                },
-                {
-                    header: true,
-                    title: 'Dashboard',
-                    // component: componentName
-                    // visibleOnCollapse: true
-                    //class:'hidden'
-                    // attributes: {}
-                },
-                {
-                    href: '/dashboard/users',
-                    title: 'Korisnici',
-                    icon: 'v-icon material-icons'
-                },
-                {
-                    href: '/dashboard/events2',
-                    title: 'Eventi',
-                    icon: 'v-icon material-icons',
-                }
-            ],
+            menu: [],
             collapseHandler: 0
         }
     },
     mounted(){
-        this.menuIcons.forEach((icon, index) => {
-            let ic = document.getElementsByClassName('vsm-icon')[index];
-            ic.innerHTML = icon;
+        itemController(this.$store, false).then(items => {
+            this.menu = items.expRoutes
+            return items
+        }).then(i => {
+            this.loadIcons(i.expRouteIcons)
         })
     },
     methods: {
         onCollapse(){
             if(this.collapseHandler == 0){
-                document.getElementById("leftSpacer").style.width = 250 + "px"
+                document.getElementById("leftSpacer").style.width = 200 + "px"
                 this.collapseHandler = 1
             } else {
                 document.getElementById("leftSpacer").style.width = 50 + "px"
@@ -80,6 +40,13 @@ export default {
             }
             
         },
+
+        loadIcons(iconsArray){
+            iconsArray.forEach((icon, index) => {
+                let ic = document.getElementsByClassName('vsm-icon')[index];
+                ic.innerHTML = icon;
+            })
+        }
     }
 }
 </script>

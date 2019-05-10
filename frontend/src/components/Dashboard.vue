@@ -17,7 +17,7 @@ export default {
 		}
 	},
 	mounted() {
-	this.$store.dispatch('permissionAllowed', [0, 1, 2, 3]).then(
+		this.$store.dispatch('permissionAllowed', [0, 1, 2, 3]).then(
 			perm => {
 				this.permission = perm
 				return this.permission

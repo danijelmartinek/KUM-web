@@ -59,7 +59,15 @@ export const store = new Vuex.Store({
                     resolve(permissionArray.includes(context.state.user.role.roleLevel))
                 })
             }else{
-                return true
+                return new Promise(resolve => {
+                    context.dispatch('authUser').then(auth => {
+                        if(auth){
+                            resolve(permissionArray.includes(context.state.user.role.roleLevel))
+                        } else {
+                            resolve(false)
+                        }
+                    })
+                })
             }
         }
     }
