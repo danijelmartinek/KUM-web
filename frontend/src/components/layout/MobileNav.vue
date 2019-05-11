@@ -59,6 +59,10 @@ export default {
     itemController(this.$store, true).then(items => {
       this.routes = items.expRoutes
       this.routesLength = items.length
+
+      this.routes = this.routes.filter(function( obj ) {
+        return obj.title !== "Login";
+      });
     }) 
   },
   name: 'MobileNav'

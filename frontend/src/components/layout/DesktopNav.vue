@@ -18,15 +18,20 @@ export default {
     data() {
         return {
             menu: [],
+            menuIcons: [],
             collapseHandler: 0
         }
     },
-    mounted(){
+    created(){
         itemController(this.$store, false).then(items => {
             this.menu = items.expRoutes
             return items
         }).then(i => {
-            this.loadIcons(i.expRouteIcons)
+            this.menuIcons = i.expRouteIcons
+        })
+
+        window.addEventListener('load', () => {
+            this.loadIcons(this.menuIcons)
         })
     },
     methods: {
