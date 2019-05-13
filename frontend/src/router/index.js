@@ -15,6 +15,8 @@ import DashboardEvents from "@/components/dashboard/Events.vue";
 import EventProfile from "@/components/dashboard/Event.vue";
 import EventProfileEdit from "@/components/dashboard/EventEdit.vue";
 
+import Tasks from "@/components/dashboard/Tasks.vue";
+
 import authMiddleware from '@/middleware/auth.js';
 import authRoleMiddleware from '@/middleware/authWRoleCheck.js';
 
@@ -84,6 +86,15 @@ export default new Router({
       path: '/dashboard/event/:id/edit',
       name: 'EventEdit',
       component: EventProfileEdit,
+      beforeEnter: authRoleMiddleware,
+      meta: {
+        allowedRoles: [0, 1, 2, 3]
+      }
+    },
+    { 
+      path: '/dashboard/tasks',
+      name: 'Tasks',
+      component: Tasks,
       beforeEnter: authRoleMiddleware,
       meta: {
         allowedRoles: [0, 1, 2, 3]

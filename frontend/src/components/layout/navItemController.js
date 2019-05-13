@@ -7,7 +7,8 @@ export function itemController(store, isMobile){
                 header: true,
                 title: "Navigacija",
                 permission: "all",
-                type: "header"
+                type: "header",
+                // visibleOnCollapse: true
             },
             {
                 href: "/",
@@ -24,6 +25,13 @@ export function itemController(store, isMobile){
                 rIcon: "event",
                 permission: "all",
                 type: "item"
+            },
+            {
+                header: true,
+                title: "",
+                permission: "all",
+                type: "header",
+                visibleOnCollapse: true
             },
             {
                 href: "/signup",

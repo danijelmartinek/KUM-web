@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #mainLayout{
 	margin-top: 4em;
 	width: 100%;
