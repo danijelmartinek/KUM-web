@@ -63,6 +63,14 @@ export function itemController(store, isMobile){
                 permission: [1, 2, 3],
                 type: "item"
             },
+            {
+                href: "/dashboard/tasks_",
+                title: "Tasks",
+                icon: 'v-icon material-icons',
+                rIcon: "assignment",
+                permission: [1, 2, 3],
+                type: "item"
+            }
         ]
 
         let expRoutes = []

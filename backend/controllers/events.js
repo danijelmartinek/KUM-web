@@ -31,7 +31,7 @@ const eventById = (req, res) => {
 }
 
 const deleteEvent = (req, res) => {
-    Event.findByIdAndDelete(req.params.id, (err, user) => {
+    Event.findByIdAndDelete(req.params.id, (err, event) => {
         if(err){
             return res.status(200).send({
                 success: false,

@@ -26,7 +26,7 @@ const register = (req, res) => {
             password: hash,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            avatar: '',
+            avatar: req.body.avatar,
             phoneNumber: '',
             about: '',
             membershipFeePaid: false,

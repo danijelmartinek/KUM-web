@@ -31,7 +31,10 @@ export default {
         })
 
         window.addEventListener('load', () => {
-            this.loadIcons(this.menuIcons)
+            let t = this
+            setTimeout(function(){ 
+                t.loadIcons(t.menuIcons)
+             }, 100);
         })
     },
     methods: {

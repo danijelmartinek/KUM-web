@@ -92,7 +92,7 @@ export default new Router({
       }
     },
     { 
-      path: '/dashboard/tasks',
+      path: '/dashboard/tasks_',
       name: 'Tasks',
       component: Tasks,
       beforeEnter: authRoleMiddleware,

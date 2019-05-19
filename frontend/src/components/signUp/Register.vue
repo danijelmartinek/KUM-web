@@ -133,7 +133,8 @@ export default {
         email: this.register.email,
         password: this.register.password,
         firstName: this.register.firstName,
-        lastName: this.register.lastName
+				lastName: this.register.lastName,
+				avatar: "default" + (Math.floor(Math.random() * 2) + 1) + ".png"
       }
 
       if(valid) {

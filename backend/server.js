@@ -16,6 +16,7 @@ const configDB = require('./config/database.js')
 const controllerAuth = require("./controllers/auth.js")
 const { usersData, userById, deleteUser, multiUserDelete } = require("./controllers/users.js")
 const { eventsData, eventById, deleteEvent, multiEventDelete } = require("./controllers/events.js")
+const { tasksData, createTask, deleteTask, assignTask } = require("./controllers/tasks.js")
 const { facebookApiAuth, saveFacebookEvents } = require("./controllers/fbGraphApi.js")
 
 // set ENV --------------------
@@ -75,6 +76,11 @@ app.get("/events", eventsData)
 app.get("/event/:id", eventById)
 app.get("/event/:id/delete", deleteEvent)
 app.post("/events/multidelete", multiEventDelete)
+
+app.get("/tasks", tasksData)
+app.post("/task/create", createTask)
+app.get("/task/:id/delete", deleteTask)
+app.post("/task/assign", assignTask)
 
 // Facebook graph api routes  --------------------
 app.get("/fb/auth", facebookApiAuth)

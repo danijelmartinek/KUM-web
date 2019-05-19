@@ -20,8 +20,7 @@ var UserSchema = new mongoose.Schema({
     default: ''
   },
   avatar: {
-    data: Buffer,
-    contentType: String
+    type: String
   },
   phoneNumber: {
     type: String,

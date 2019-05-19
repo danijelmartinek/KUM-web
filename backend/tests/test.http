@@ -11,12 +11,12 @@ content-type: application/json
 
 ###
 
-POST http://localhost:3000/login HTTP/1.1
+POST http://localhost:3000/task/assign HTTP/1.1
 content-type: application/json
 
 {
-    "email":"example@gmail.com",
-    "password": "banana"
+    "_id": "5ce1bfcbbc75a00dcbb60eb2",
+    "assignedUsers": ["fdsfds", "43432"]
 }
 
 ###

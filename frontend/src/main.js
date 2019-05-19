@@ -19,7 +19,7 @@ require('mapbox.js') // <-- auto-attaches to window.L
 
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
-Vue.use(require('vue-moment'));
+Vue.use(require('vue-moment'))
 import 'vuetify/dist/vuetify.min.css'
 
 new Vue({
