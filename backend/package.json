@@ -17,6 +17,6 @@
     "express": "^4.16.3",
     "fbgraph": "^1.4.4",
     "jsonwebtoken": "^8.2.1",
-    "mongoose": "^5.4.9"
+    "mongoose": "^5.7.5"
   }
 }
